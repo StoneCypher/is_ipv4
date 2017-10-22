@@ -12,8 +12,8 @@ const rand_byte = () => rand(256);
 
 describe('Basic quad passes', async _it => {
 
-  const must_pass    = tcase => test(`${tcase} passes`, t => t.is(true, is_quad(tcase) ));
-  const must_pass_ex = tcase => test(`${tcase} passes`, t => t.is(true, is_quad_ex(tcase).result ));
+  const must_pass    = tcase => test(`${tcase} passes is_quad`,    t => t.is(true, is_quad(tcase) ));
+  const must_pass_ex = tcase => test(`${tcase} passes is_quad_ex`, t => t.is(true, is_quad_ex(tcase).result ));
 
   const cases = [ '0.0.0.0', '1.1.1.1', '255.255.255.255', '127.0.0.1', '8.8.8.8', '0.255.255.0' ];
   cases.map(must_pass);
@@ -35,8 +35,8 @@ describe('Basic quad passes', async _it => {
 
 describe('Basic quad rejects', async _it => {
 
-  const must_fail    = tcase => test(`${tcase} fails`, t => t.is(false, is_quad(tcase) ));
-  const must_fail_ex = tcase => test(`${tcase} fails`, t => t.is(false, is_quad_ex(tcase).result ));
+  const must_fail    = tcase => test(`${tcase} fails is_quad`,    t => t.is(false, is_quad(tcase) ));
+  const must_fail_ex = tcase => test(`${tcase} fails is_quad_ex`, t => t.is(false, is_quad_ex(tcase).result ));
 
   const cases = [
     '0.0.0',     '0.0.0.0.0',                           // wrong length
