@@ -90,9 +90,71 @@ const is_integer: Function = (ip: number): boolean =>
 
 
 
-const as_parsed_quad: Function = (ip: Ip): boolean => {
+const integer_to_quad: Function = (ip: number): string => {
+
+  if (!(Number.isInteger(ip))) { throw new TypeError('integer_to_quad accepts only integers'); }
+
+  return `${((ip >> 24) & 0xFF)}.${((ip >> 16) & 0xFF)}.${((ip >> 8) & 0xFF)}.${(ip & 0xFF)}`;  // eslint-disable-line no-bitwise
+
+};
+
+
+
+
+
+function ParsedQuad(a: number, b: number, c: number, d: number): ParsedQuad {
+
+    this.a = a;
+    this.b = b;
+    this.c = c;
+    this.d = d;
+
+    return this;
 
 }
+
+
+
+
+
+const parsed_quad_to_quad: Function = ({a, b, c, d}): string =>
+
+    `${a}.${b}.${c}.${d}`;
+
+
+
+
+
+const as_quad: Function = (ip: Ip): string => {
+
+  if (typeof ip === 'number') {
+    return integer_to_quad(ip);
+  }
+
+  else if (ip instanceof ParsedQuad) {
+    return parsed_quad_to_quad(ParsedQuad);
+  }
+
+  else if (is_quad(ip)) { return ip; }
+
+  throw new Error('cannot construct quad from this input');
+
+};
+
+
+
+
+
+const as_parsed_quad: Function = (ip: Ip): ParsedQuad => {
+
+    if (ip instanceof ParsedQuad) { return ip; }
+
+    const bytes: Array<number> = as_quad(ip).split('.')
+                                            .map( (s: string): number => parseInt(s, 10));
+
+    return new ParsedQuad(... bytes);
+
+};
 
 
 
@@ -103,6 +165,8 @@ export {
 
     is_quad,
       is_quad_ex,
+
+    integer_to_quad,
 
 //    is_incomplete_quad,
 //      is_incomplete_quad_ex,

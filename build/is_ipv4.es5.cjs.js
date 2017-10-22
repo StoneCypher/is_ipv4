@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var fail = function fail(why) {
   return { result: false, reason: why };
@@ -67,9 +68,64 @@ var is_integer = function is_integer(ip) {
 }; // 255.255.255.255
 
 
+var integer_to_quad = function integer_to_quad(ip) {
+
+  if (!Number.isInteger(ip)) {
+    throw new TypeError('integer_to_quad accepts only integers');
+  }
+
+  return (ip >> 24 & 0xFF) + '.' + (ip >> 16 & 0xFF) + '.' + (ip >> 8 & 0xFF) + '.' + (ip & 0xFF); // eslint-disable-line no-bitwise
+};
+
+function ParsedQuad(a, b, c, d) {
+
+  this.a = a;
+  this.b = b;
+  this.c = c;
+  this.d = d;
+
+  return this;
+}
+
+var parsed_quad_to_quad = function parsed_quad_to_quad(_ref) {
+  var a = _ref.a,
+      b = _ref.b,
+      c = _ref.c,
+      d = _ref.d;
+  return a + '.' + b + '.' + c + '.' + d;
+};
+
+var as_quad = function as_quad(ip) {
+
+  if (typeof ip === 'number') {
+    return integer_to_quad(ip);
+  } else if (ip instanceof ParsedQuad) {
+    return parsed_quad_to_quad(ParsedQuad);
+  } else if (is_quad(ip)) {
+    return ip;
+  }
+
+  throw new Error('cannot construct quad from this input');
+};
+
+var as_parsed_quad = function as_parsed_quad(ip) {
+
+  if (ip instanceof ParsedQuad) {
+    return ip;
+  }
+
+  var bytes = as_quad(ip).split('.').map(function (s) {
+    return parseInt(s, 10);
+  });
+
+  return new (Function.prototype.bind.apply(ParsedQuad, [null].concat(_toConsumableArray(bytes))))();
+};
+
 exports.is_quad = is_quad;
 exports.is_quad_ex = is_quad_ex;
+exports.integer_to_quad = integer_to_quad;
 exports.is_integer = is_integer;
+exports.as_parsed_quad = as_parsed_quad;
 exports.check = check;
 
 },{}]},{},[]);
