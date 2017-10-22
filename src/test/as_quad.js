@@ -24,6 +24,7 @@ describe('as_quad', async _it => {
   quad_cases.map(tcase => must_pass({sample: tcase.int,                           expectation: tcase.int_array}));
   quad_cases.map(tcase => must_pass({sample: new ParsedQuad(... tcase.int_array), expectation: tcase.int_array}));
 
+
 });
 
 
