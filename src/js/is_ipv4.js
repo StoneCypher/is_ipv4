@@ -89,6 +89,14 @@ const is_integer: Function = (ip: number): boolean =>
 
 
 
+
+const as_parsed_quad: Function = (ip: Ip): boolean => {
+
+}
+
+
+
+
 export {
 
 //    is_simple,
@@ -105,6 +113,7 @@ export {
  //    is_complex_quad,
  //    is_complex_integer,
 
+    as_parsed_quad,
  //    as_quad,
  //    as_integer,
 
