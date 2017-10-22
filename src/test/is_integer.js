@@ -1,7 +1,7 @@
 
 import {test, describe} from 'ava-spec';
-
-import {is_integer} from '../../build/is_ipv4.es5.js';
+import {is_integer}     from '../../build/is_ipv4.es5.js';
+import {rand}           from './__gen.js';
 
 
 
@@ -23,15 +23,11 @@ describe('Basic integer passes', async _it => {
 
   cases.map(must_pass);
 
-/*
-  // generate a thousand random valid ip quads; validate them all with and without ex
+  // generate and validate a thousand random test cases
   let counter = 0;
   while (counter++ < 1000) {
-    const tcase = `${rand_byte()}.${rand_byte()}.${rand_byte()}.${rand_byte()}`;
-    must_pass(tcase);
-    must_pass_ex(tcase);
+    must_pass( rand(4294967296) );
   }
-*/
 
 });
 

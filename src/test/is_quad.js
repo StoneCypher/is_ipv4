@@ -1,10 +1,7 @@
 
-import {test, describe} from 'ava-spec';
-
+import {test, describe}      from 'ava-spec';
 import {is_quad, is_quad_ex} from '../../build/is_ipv4.es5.js';
-
-const rand      = n  => Math.floor(Math.random() * n);
-const rand_byte = () => rand(256);
+import {rand, rand_quad}     from './__gen.js';
 
 
 
@@ -23,7 +20,7 @@ describe('Basic quad passes', async _it => {
   // generate a thousand random valid ip quads; validate them all with and without ex
   let counter = 0;
   while (counter++ < 1000) {
-    const tcase = `${rand_byte()}.${rand_byte()}.${rand_byte()}.${rand_byte()}`;
+    const tcase = rand_quad();
     must_pass(tcase);
     must_pass_ex(tcase);
   }
