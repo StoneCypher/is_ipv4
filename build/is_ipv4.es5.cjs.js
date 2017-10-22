@@ -1,9 +1,31 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"is_ipv4":[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function ParsedQuad(a, b, c, d) {
+
+  this.a = a;
+  this.b = b;
+  this.c = c;
+  this.d = d;
+
+  return this;
+}
+
+exports.ParsedQuad = ParsedQuad;
+
+},{}],"is_ipv4":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.check = exports.as_parsed_quad = exports.as_quad = exports.is_integer = exports.parsed_quad_to_quad = exports.ParsedQuad = exports.int_array_to_quad = exports.integer_to_quad = exports.is_quad_ex = exports.is_quad = undefined;
+
+var _type_impls = require('./type_impls.js');
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -126,16 +148,6 @@ var int_array_to_quad = function int_array_to_quad(ia) {
   return ia[0] + '.' + ia[1] + '.' + ia[2] + '.' + ia[3];
 };
 
-function ParsedQuad(a, b, c, d) {
-
-  this.a = a;
-  this.b = b;
-  this.c = c;
-  this.d = d;
-
-  return this;
-}
-
 var parsed_quad_to_quad = function parsed_quad_to_quad(_ref) {
   var a = _ref.a,
       b = _ref.b,
@@ -148,7 +160,7 @@ var as_quad = function as_quad(ip) {
 
   if (typeof ip === 'number') {
     return integer_to_quad(ip);
-  } else if (ip instanceof ParsedQuad) {
+  } else if (ip instanceof _type_impls.ParsedQuad) {
     return parsed_quad_to_quad(ip);
   } else if (Array.isArray(ip)) {
     return int_array_to_quad(ip);
@@ -163,7 +175,7 @@ var as_quad = function as_quad(ip) {
 
 var as_parsed_quad = function as_parsed_quad(ip) {
 
-  if (ip instanceof ParsedQuad) {
+  if (ip instanceof _type_impls.ParsedQuad) {
     return ip;
   }
 
@@ -171,18 +183,18 @@ var as_parsed_quad = function as_parsed_quad(ip) {
     return parseInt(s, 10);
   });
 
-  return new (Function.prototype.bind.apply(ParsedQuad, [null].concat(_toConsumableArray(bytes))))();
+  return new (Function.prototype.bind.apply(_type_impls.ParsedQuad, [null].concat(_toConsumableArray(bytes))))();
 };
 
 exports.is_quad = is_quad;
 exports.is_quad_ex = is_quad_ex;
 exports.integer_to_quad = integer_to_quad;
 exports.int_array_to_quad = int_array_to_quad;
-exports.ParsedQuad = ParsedQuad;
+exports.ParsedQuad = _type_impls.ParsedQuad;
 exports.parsed_quad_to_quad = parsed_quad_to_quad;
 exports.is_integer = is_integer;
 exports.as_quad = as_quad;
 exports.as_parsed_quad = as_parsed_quad;
 exports.check = check;
 
-},{}]},{},[]);
+},{"./type_impls.js":1}]},{},[]);

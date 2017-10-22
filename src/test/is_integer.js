@@ -17,7 +17,8 @@ describe('Basic integer passes', async it => {
   // generate and validate a thousand random test cases
   let counter = 0;
   while (counter++ < 1000) {
-    it('doesn\'t throw', t => t.notThrows(() => is_integer(rand(4294967296))) );
+    const n = rand(4294967296);
+    it(`${n} doesn\'t throw`, t => t.notThrows(() => is_integer(n)) );
   }
 
 });

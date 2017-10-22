@@ -37,8 +37,13 @@ describe('rand_quads don\'t throw', async it => {
   // generate and validate a thousand random test cases
   let counter = 0;
   while (counter++ < 1000) {
-    it('doesn\'t throw from integer',      t => t.notThrows(() => as_quad( rand(4294967296) )) );
-    it('doesn\'t throw from already quad', t => t.notThrows(() => as_quad( rand_quad()      )) );
+
+    const r  = rand(4294967296),
+          rq = rand_quad();
+
+    it(`${r} doesn\'t throw from integer`,       t => t.notThrows(() => as_quad( r  )) );
+    it(`${rq} doesn\'t throw from already quad`, t => t.notThrows(() => as_quad( rq )) );
+
   }
 
 });

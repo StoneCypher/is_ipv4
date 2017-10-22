@@ -1,9 +1,7 @@
 
-import {test, describe} from 'ava-spec';
-
+import {test, describe}    from 'ava-spec';
 import {int_array_to_quad} from '../../build/is_ipv4.es5.js';
-
-import {quad_cases} from './__quad_data.js';
+import {quad_cases}        from './__quad_data.js';
 
 
 

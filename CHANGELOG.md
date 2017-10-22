@@ -1,3 +1,7 @@
+* [[`3ad17f55c0`](https://github.com/StoneCypher/is_ipv4/commit/3ad17f55c0)] - couple more bits of generation (John Haugeland) 
+* [[`0bf46cea60`](https://github.com/StoneCypher/is_ipv4/commit/0bf46cea60)] - extract generation (John Haugeland) 
+* [[`1119d88b4e`](https://github.com/StoneCypher/is_ipv4/commit/1119d88b4e)] - convert as_quad and as_parsed_quad tests to data-driven (John Haugeland) 
+* [[`8149a98a94`](https://github.com/StoneCypher/is_ipv4/commit/8149a98a94)] - convert more testing to data-driven.  add some data cases (John Haugeland) 
 * [[`f1d54433b8`](https://github.com/StoneCypher/is_ipv4/commit/f1d54433b8)] - int_array_to_quad testing (John Haugeland) 
 * [[`c92d9b6ad6`](https://github.com/StoneCypher/is_ipv4/commit/c92d9b6ad6)] - converting towards data driven testing (John Haugeland) 
 * [[`a8faf787c5`](https://github.com/StoneCypher/is_ipv4/commit/a8faf787c5)] - just to exclude tests from codeclimate (John Haugeland) 

@@ -9,6 +9,13 @@ import type {
 } from './types';
 
 
+import {
+
+  ParsedQuad
+
+} from './type_impls.js';
+
+
 
 
 
@@ -155,21 +162,6 @@ const int_array_to_quad: Function = (ia: Array<number>): string => {
   return `${ia[0]}.${ia[1]}.${ia[2]}.${ia[3]}`;
 
 };
-
-
-
-
-
-function ParsedQuad(a: number, b: number, c: number, d: number): ParsedQuad {
-
-  this.a = a;
-  this.b = b;
-  this.c = c;
-  this.d = d;
-
-  return this;
-
-}
 
 
 
