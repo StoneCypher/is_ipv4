@@ -1,31 +1,44 @@
 
-const fail = why => ({ result: false, reason: why });
+// @flow
+
+import type {
+
+  Ip,
+  Result
+
+} from './types';
 
 
 
 
 
-const check = _ip => false;
+const fail: Function = (why: string): Result => ({ result: false, reason: why });
 
 
 
 
 
-const letterFilter = new RegExp('^[0-9\\.]+$', 'gi');
+const check: Function = (_ip: Ip): boolean => false;
 
-const is_quad_ex = ip => {
+
+
+
+
+const letterFilter: RegExp = new RegExp('^[0-9\\.]+$', 'gi');
+
+const is_quad_ex: Function = (ip: Ip): Result => {
 
     if (!( typeof(ip) === 'string' )) { return fail('All quads are strings'); }
     if (!( letterFilter.test(ip) ))   { return fail('A quad may only contain 0-9 and period'); }
 
-    const quad = ip.split('.');
+    const quad: Array<string> = ip.split('.');
     if (!(quad.length === 4)) { return fail('All complete quads have four bytes separated by periods'); }
 
-    quad.map( (b,i) => {
+    quad.map( (b: string, i: number): boolean => {
 
         if (b.length === 0) { return fail(`Byte ${i} must not be empty`); }
 
-        const bt = parseInt(b, 16);
+        const bt: number = parseInt(b, 16);
 
         if (bt < 0)   { return fail(`Byte ${i} must be non-negative`); }
         if (bt > 255) { return fail(`Byte ${i} must be below 256`); }
@@ -44,7 +57,7 @@ const is_quad_ex = ip => {
 
 
 
-const is_quad = ip => is_quad_ex(ip).result;
+const is_quad: Function = (ip: Ip): boolean => is_quad_ex(ip).result;
 
 
 

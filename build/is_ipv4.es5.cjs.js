@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+
 var fail = function fail(why) {
     return { result: false, reason: why };
 };
