@@ -13,7 +13,8 @@ var fail = function fail(why) {
 
 var check = function check(_ip) {
   return false;
-};
+}; // whargarbl todo comeback
+
 
 var letterFilter = new RegExp('^[0-9\\.]+$');
 
@@ -61,30 +62,6 @@ var is_quad_ex = function is_quad_ex(ip) {
     return fail('All complete quads have four bytes separated by periods');
   }
 
-  /*
-    for (let i: number = 0; i<4; ++i) { // eslint-disable-line fp/no-loops
-  
-      const b: string = quad[i];
-      if (b.length === 0) { return fail(`Byte ${i} must not be empty`); }
-  
-      const bt: number = parseInt(b, 10);
-  
-      // needn't check below zero, because character filter prevents minus signs
-      if (bt > 255) { return fail(`Byte ${i} must be below 256`); }
-  
-      if ((b[0] === '0') && (bt > 0)) {
-        return fail(`Nonzero byte ${i} must not begin with zero`);
-      }
-  
-      if ((b.length > 1) && (bt === 0)) {
-        return fail(`Zero byte ${i} must not have multiple zeroes`);
-      }
-  
-    }
-  
-  
-    return { result: true };
-  */
   return check_quad(quad);
 };
 
@@ -115,11 +92,23 @@ var integer_to_quad = function integer_to_quad(ip) {
 
 var int_array_to_quad = function int_array_to_quad(ia) {
 
-  if (ia.length < 4) {
+  if (!Array.isArray(ia)) {
+    throw new TypeError('int_array_to_quad requires an array of unsigned byte integers');
+  }
+
+  if (ia.length < 4 || ia.length > 4) {
     throw new RangeError('int_array_to_quad requires a 4-byte array');
   }
 
-  ia.map(function (byte, i) {
+  // can't be a map to validate, because a map will skip holes
+  for (var i = 0; i < 4; ++i) {
+    // eslint-disable-line fp/no-loops
+
+    var byte = ia[i];
+
+    if (byte === undefined || byte === null || isNaN(byte)) {
+      throw new TypeError('byte ' + i + ' must not be undefined, null, or NaN');
+    }
 
     if (!Number.isInteger(byte)) {
       throw new TypeError('int_array_to_quad accepts only arrays of integers');
@@ -132,7 +121,7 @@ var int_array_to_quad = function int_array_to_quad(ia) {
     if (byte > 255) {
       throw new RangeError('byte ' + i + ' should be 255 or lower (y\'know, a byte)');
     }
-  });
+  }
 
   return ia[0] + '.' + ia[1] + '.' + ia[2] + '.' + ia[3];
 };
@@ -188,6 +177,7 @@ var as_parsed_quad = function as_parsed_quad(ip) {
 exports.is_quad = is_quad;
 exports.is_quad_ex = is_quad_ex;
 exports.integer_to_quad = integer_to_quad;
+exports.int_array_to_quad = int_array_to_quad;
 exports.ParsedQuad = ParsedQuad;
 exports.parsed_quad_to_quad = parsed_quad_to_quad;
 exports.is_integer = is_integer;

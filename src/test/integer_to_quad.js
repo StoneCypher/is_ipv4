@@ -13,12 +13,15 @@ describe('Basic integers to quads', async _it => {
 
   // test default-bind, ones, universal broadcast, localhost, google dns, inverter range
   const cases = [
+
+    // basics
     { sample: 0,          expectation: '0.0.0.0' },
     { sample: 16843009,   expectation: '1.1.1.1' },
     { sample: 4294967295, expectation: '255.255.255.255' },
     { sample: 2130706433, expectation: '127.0.0.1' },
     { sample: 134744072,  expectation: '8.8.8.8' },
     { sample: 16776960,   expectation: '0.255.255.0' }
+
   ];
 
   cases.map(must_pass);

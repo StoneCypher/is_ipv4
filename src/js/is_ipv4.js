@@ -121,11 +121,22 @@ const integer_to_quad: Function = (ip: number): string => {
 
 const int_array_to_quad: Function = (ia: Array<number>): string => {
 
-  if (ia.length < 4) {
+  if (!(Array.isArray(ia))) {
+    throw new TypeError('int_array_to_quad requires an array of unsigned byte integers');
+  }
+
+  if ((ia.length < 4) || (ia.length > 4)) {
     throw new RangeError('int_array_to_quad requires a 4-byte array');
   }
 
-  ia.map( (byte,i) => {
+  // can't be a map to validate, because a map will skip holes
+  for (let i: number = 0; i < 4; ++i) { // eslint-disable-line fp/no-loops
+
+    const byte: number = ia[i];
+
+    if ((byte === undefined) || (byte === null) || isNaN(byte)) {
+      throw new TypeError(`byte ${i} must not be undefined, null, or NaN`);
+    }
 
     if (!(Number.isInteger(byte))) {
       throw new TypeError('int_array_to_quad accepts only arrays of integers');
@@ -139,7 +150,7 @@ const int_array_to_quad: Function = (ia: Array<number>): string => {
       throw new RangeError(`byte ${i} should be 255 or lower (y'know, a byte)`);
     }
 
-  });
+  }
 
   return `${ia[0]}.${ia[1]}.${ia[2]}.${ia[3]}`;
 
@@ -220,6 +231,7 @@ export {
       is_quad_ex,
 
     integer_to_quad,
+    int_array_to_quad,
 
     ParsedQuad,
     parsed_quad_to_quad,
