@@ -168,9 +168,8 @@ export {
 
     integer_to_quad,
 
-//  as_parsed_quad,
-//  ParsedQuad,
-//  parsed_quad_to_quad,
+    ParsedQuad,
+    parsed_quad_to_quad,
 
 //    is_incomplete_quad,
 //      is_incomplete_quad_ex,
