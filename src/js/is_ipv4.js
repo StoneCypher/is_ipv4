@@ -94,6 +94,9 @@ const integer_to_quad: Function = (ip: number): string => {
 
   if (!(Number.isInteger(ip))) { throw new TypeError('integer_to_quad accepts only integers'); }
 
+  if (ip < 0)          { throw new RangeError('IP integer must be non-negative'); }
+  if (ip > 4294967295) { throw new RangeError('Maximum IP integer is 4,294,967,295'); }
+
   return `${((ip >> 24) & 0xFF)}.${((ip >> 16) & 0xFF)}.${((ip >> 8) & 0xFF)}.${(ip & 0xFF)}`;  // eslint-disable-line no-bitwise
 
 };

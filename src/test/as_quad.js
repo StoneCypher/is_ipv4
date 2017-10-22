@@ -45,3 +45,22 @@ describe('as_quad', async _it => {
   cases.map(must_pass);
 
 });
+
+
+
+
+
+describe('as_quad bad input', async it => {
+
+  const cases = [
+
+    -2, -1,                                    // too low
+    4294967296, 4294967297,                    // too high
+    3.5, Math.pi,                              // integers only kthx
+    [], {}, "two", false, null, undefined      // i said integers only :/
+
+  ];
+
+  cases.map(tcase => it(`throws for ${JSON.stringify(tcase)}`, t => t.throws(() => as_quad(tcase)) ));
+
+});

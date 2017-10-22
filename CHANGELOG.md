@@ -1,3 +1,4 @@
+* [[`8d582a9c6e`](https://github.com/StoneCypher/is_ipv4/commit/8d582a9c6e)] - as_quad tests (John Haugeland) 
 * [[`1b1d7077b6`](https://github.com/StoneCypher/is_ipv4/commit/1b1d7077b6)] - Tests for parsed_quad_to_quad (John Haugeland) 
 * [[`81a2e51055`](https://github.com/StoneCypher/is_ipv4/commit/81a2e51055)] - Add remaining signatures to export (John Haugeland) 
 * [[`460b9c0e6f`](https://github.com/StoneCypher/is_ipv4/commit/460b9c0e6f)] - Basic integers to quads tests (John Haugeland) 
