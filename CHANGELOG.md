@@ -1,3 +1,4 @@
+* [[`c0bc8a32b7`](https://github.com/StoneCypher/is_ipv4/commit/c0bc8a32b7)] - Add stub on check/1 to see if it was the coverage problem (John Haugeland) 
 * [[`5506decd97`](https://github.com/StoneCypher/is_ipv4/commit/5506decd97)] - Remove accidental spare copy of testset.  Add a few more erroneous cases.  Create .npmignore.  Trigger build pass, in theory (John Haugeland) 
 * [[`a6e3f13f43`](https://github.com/StoneCypher/is_ipv4/commit/a6e3f13f43)] - 3100 basic tests (John Haugeland) 
 * [[`123f747681`](https://github.com/StoneCypher/is_ipv4/commit/123f747681)] - flowtyped (John Haugeland) 

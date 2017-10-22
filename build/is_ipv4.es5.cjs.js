@@ -62,8 +62,14 @@ var is_quad = function is_quad(ip) {
   return is_quad_ex(ip).result;
 };
 
+var is_integer = function is_integer(ip) {
+  return Number.isInteger(ip) && ip >= 0 && ip <= 4294967295;
+}; // 255.255.255.255
+
+
 exports.is_quad = is_quad;
 exports.is_quad_ex = is_quad_ex;
+exports.is_integer = is_integer;
 exports.check = check;
 
 },{}]},{},[]);

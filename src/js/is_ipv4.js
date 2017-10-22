@@ -80,6 +80,15 @@ const is_quad: Function = (ip: Ip): boolean => is_quad_ex(ip).result;
 
 
 
+const is_integer: Function = (ip: number): boolean =>
+
+    (Number.isInteger(ip))
+ && (ip >= 0)
+ && (ip <= 4294967295); // 255.255.255.255
+
+
+
+
 export {
 
 //    is_simple,
@@ -89,7 +98,8 @@ export {
 
 //    is_incomplete_quad,
 //      is_incomplete_quad_ex,
- //    is_integer,
+
+    is_integer,
 
  //    is_complex,  // has port or subnet mask
  //    is_complex_quad,
