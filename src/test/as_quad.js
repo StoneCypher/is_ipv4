@@ -2,6 +2,7 @@
 import {test, describe}      from 'ava-spec';
 import {ParsedQuad, as_quad} from '../../build/is_ipv4.es5.js';
 import {quad_cases}          from './__quad_data.js';
+import {rand, rand_quad}     from './__gen.js';
 
 
 
@@ -24,6 +25,21 @@ describe('as_quad', async _it => {
   quad_cases.map(tcase => must_pass({sample: tcase.int,                           expectation: tcase.int_array}));
   quad_cases.map(tcase => must_pass({sample: new ParsedQuad(... tcase.int_array), expectation: tcase.int_array}));
 
+
+});
+
+
+
+
+
+describe('rand_quads don\'t throw', async it => {
+
+  // generate and validate a thousand random test cases
+  let counter = 0;
+  while (counter++ < 1000) {
+    it('doesn\'t throw from integer',      t => t.notThrows(() => as_quad( rand(4294967296) )) );
+    it('doesn\'t throw from already quad', t => t.notThrows(() => as_quad( rand_quad()      )) );
+  }
 
 });
 
