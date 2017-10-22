@@ -1,0 +1,3 @@
+* [[`c0f7223fa3`](https://github.com/StoneCypher/is_ipv4/commit/c0f7223fa3)] - npm init (John Haugeland) 
+* [[`2dc517a1ba`](https://github.com/StoneCypher/is_ipv4/commit/2dc517a1ba)] - rudimentary quad impl (John Haugeland) 
+* [[`e06876e31a`](https://github.com/StoneCypher/is_ipv4/commit/e06876e31a)] - Initial commit (John Haugeland) 

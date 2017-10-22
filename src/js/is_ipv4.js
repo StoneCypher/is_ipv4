@@ -1,23 +1,22 @@
 
-const fail = (why) => { return { result: false, reason: why }; }
+const fail = why => ({ result: false, reason: why });
 
 
 
 
 
-const check = ip => {
-
-    return false;
-
-};
+const check = _ip => false;
 
 
 
 
+
+const letterFilter = new RegExp('^[0-9\\.]+$', 'gi');
 
 const is_quad_ex = ip => {
 
-    if (!(typeof(ip) === 'string')) { return fail('All quads are strings'); }
+    if (!( typeof(ip) === 'string' )) { return fail('All quads are strings'); }
+    if (!( letterFilter.test(ip) ))   { return fail('A quad may only contain 0-9 and period'); }
 
     const quad = ip.split('.');
     if (!(quad.length === 4)) { return fail('All complete quads have four bytes separated by periods'); }
@@ -31,13 +30,15 @@ const is_quad_ex = ip => {
         if (bt < 0)   { return fail(`Byte ${i} must be non-negative`); }
         if (bt > 255) { return fail(`Byte ${i} must be below 256`); }
 
-        if ((b[0] === '0') && (bt > 0)) { return fail(`Nonzero byte ${i} must not begin with zero (no leading zeroes)`); }
+        if ((b[0] === '0') && (bt > 0)) { return fail(`Nonzero byte ${i} must not begin with zero`); }
+
+        return false;
 
     });
 
-    return true;
+    return { result: true };
 
-}
+};
 
 
 
@@ -52,8 +53,10 @@ const is_quad = ip => is_quad_ex(ip).result;
 export {
 
 //    is_simple,
+
     is_quad,
       is_quad_ex,
+
 //    is_incomplete_quad,
 //      is_incomplete_quad_ex,
  //    is_integer,
@@ -93,6 +96,6 @@ export {
  //    is_subnet_broadcast,
  //    is_reserved,
 
- //    check
+    check
 
 };
