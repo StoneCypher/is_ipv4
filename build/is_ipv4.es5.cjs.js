@@ -2,61 +2,64 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 
 var fail = function fail(why) {
-    return { result: false, reason: why };
+  return { result: false, reason: why };
 };
 
 var check = function check(_ip) {
-    return false;
+  return false;
 };
 
-var letterFilter = new RegExp('^[0-9\\.]+$', 'gi');
+var letterFilter = new RegExp('^[0-9\\.]+$');
 
 var is_quad_ex = function is_quad_ex(ip) {
 
-    if (!(typeof ip === 'string')) {
-        return fail('All quads are strings');
+  if (!(typeof ip === 'string')) {
+    return fail('All quads are strings');
+  }
+
+  if (!letterFilter.test(ip)) {
+    return fail('A quad may only contain 0-9 and period');
+  }
+
+  var quad = ip.split('.');
+  if (!(quad.length === 4)) {
+    return fail('All complete quads have four bytes separated by periods');
+  }
+
+  for (var i = 0; i < 4; ++i) {
+    // eslint-disable-line fp/no-loops
+
+    var b = quad[i];
+    if (b.length === 0) {
+      return fail('Byte ' + i + ' must not be empty');
     }
-    if (!letterFilter.test(ip)) {
-        return fail('A quad may only contain 0-9 and period');
+
+    var bt = parseInt(b, 10);
+
+    // needn't check below zero, because character filter prevents minus signs
+    if (bt > 255) {
+      return fail('Byte ' + i + ' must be below 256');
     }
 
-    var quad = ip.split('.');
-    if (!(quad.length === 4)) {
-        return fail('All complete quads have four bytes separated by periods');
+    if (b[0] === '0' && bt > 0) {
+      return fail('Nonzero byte ' + i + ' must not begin with zero');
     }
 
-    quad.map(function (b, i) {
+    if (b.length > 1 && bt === 0) {
+      return fail('Zero byte ' + i + ' must not have multiple zeroes');
+    }
+  }
 
-        if (b.length === 0) {
-            return fail('Byte ' + i + ' must not be empty');
-        }
-
-        var bt = parseInt(b, 16);
-
-        if (bt < 0) {
-            return fail('Byte ' + i + ' must be non-negative');
-        }
-        if (bt > 255) {
-            return fail('Byte ' + i + ' must be below 256');
-        }
-
-        if (b[0] === '0' && bt > 0) {
-            return fail('Nonzero byte ' + i + ' must not begin with zero');
-        }
-
-        return false;
-    });
-
-    return { result: true };
+  return { result: true };
 };
 
 var is_quad = function is_quad(ip) {
-    return is_quad_ex(ip).result;
+  return is_quad_ex(ip).result;
 };
 
 exports.is_quad = is_quad;

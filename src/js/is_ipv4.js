@@ -24,32 +24,49 @@ const check: Function = (_ip: Ip): boolean => false;
 
 
 
-const letterFilter: RegExp = new RegExp('^[0-9\\.]+$', 'gi');
+const letterFilter: RegExp = new RegExp('^[0-9\\.]+$');
+
+
+
+
 
 const is_quad_ex: Function = (ip: Ip): Result => {
 
-    if (!( typeof(ip) === 'string' )) { return fail('All quads are strings'); }
-    if (!( letterFilter.test(ip) ))   { return fail('A quad may only contain 0-9 and period'); }
+  if (!( typeof(ip) === 'string' )) {
+    return fail('All quads are strings');
+  }
 
-    const quad: Array<string> = ip.split('.');
-    if (!(quad.length === 4)) { return fail('All complete quads have four bytes separated by periods'); }
+  if (!( letterFilter.test(ip) )) {
+    return fail('A quad may only contain 0-9 and period');
+  }
 
-    quad.map( (b: string, i: number): boolean => {
 
-        if (b.length === 0) { return fail(`Byte ${i} must not be empty`); }
+  const quad: Array<string> = ip.split('.');
+  if (!(quad.length === 4)) { return fail('All complete quads have four bytes separated by periods'); }
 
-        const bt: number = parseInt(b, 16);
 
-        if (bt < 0)   { return fail(`Byte ${i} must be non-negative`); }
-        if (bt > 255) { return fail(`Byte ${i} must be below 256`); }
+  for (let i: number = 0; i<4; ++i) { // eslint-disable-line fp/no-loops
 
-        if ((b[0] === '0') && (bt > 0)) { return fail(`Nonzero byte ${i} must not begin with zero`); }
+    const b: string = quad[i];
+    if (b.length === 0) { return fail(`Byte ${i} must not be empty`); }
 
-        return false;
+    const bt: number = parseInt(b, 10);
 
-    });
+    // needn't check below zero, because character filter prevents minus signs
+    if (bt > 255) { return fail(`Byte ${i} must be below 256`); }
 
-    return { result: true };
+    if ((b[0] === '0') && (bt > 0)) {
+      return fail(`Nonzero byte ${i} must not begin with zero`);
+    }
+
+    if ((b.length > 1) && (bt === 0)) {
+      return fail(`Zero byte ${i} must not have multiple zeroes`);
+    }
+
+  }
+
+
+  return { result: true };
 
 };
 
