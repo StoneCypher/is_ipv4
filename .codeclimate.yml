@@ -18,5 +18,5 @@ ratings:
 exclude_paths:
 - dist/
 - docs/
-- src/js/tests/
+- src/test/
 - build/
