@@ -100,13 +100,15 @@ var as_quad = function as_quad(ip) {
   if (typeof ip === 'number') {
     return integer_to_quad(ip);
   } else if (ip instanceof ParsedQuad) {
-    return parsed_quad_to_quad(ParsedQuad);
+    return parsed_quad_to_quad(ip);
   } else if (is_quad(ip)) {
     return ip;
   }
 
   throw new Error('cannot construct quad from this input');
 };
+
+// todo whargarbl comeback needs to handle integers
 
 var as_parsed_quad = function as_parsed_quad(ip) {
 
@@ -127,6 +129,7 @@ exports.integer_to_quad = integer_to_quad;
 exports.ParsedQuad = ParsedQuad;
 exports.parsed_quad_to_quad = parsed_quad_to_quad;
 exports.is_integer = is_integer;
+exports.as_quad = as_quad;
 exports.as_parsed_quad = as_parsed_quad;
 exports.check = check;
 

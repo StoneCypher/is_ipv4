@@ -132,7 +132,7 @@ const as_quad: Function = (ip: Ip): string => {
   }
 
   else if (ip instanceof ParsedQuad) {
-    return parsed_quad_to_quad(ParsedQuad);
+    return parsed_quad_to_quad(ip);
   }
 
   else if (is_quad(ip)) { return ip; }
@@ -144,6 +144,8 @@ const as_quad: Function = (ip: Ip): string => {
 
 
 
+
+// todo whargarbl comeback needs to handle integers
 
 const as_parsed_quad: Function = (ip: Ip): ParsedQuad => {
 
@@ -180,8 +182,8 @@ export {
  //    is_complex_quad,
  //    is_complex_integer,
 
+    as_quad,
     as_parsed_quad,
- //    as_quad,
  //    as_integer,
 
  //    is_range,
