@@ -1,3 +1,4 @@
+* [[`f1d54433b8`](https://github.com/StoneCypher/is_ipv4/commit/f1d54433b8)] - int_array_to_quad testing (John Haugeland) 
 * [[`c92d9b6ad6`](https://github.com/StoneCypher/is_ipv4/commit/c92d9b6ad6)] - converting towards data driven testing (John Haugeland) 
 * [[`a8faf787c5`](https://github.com/StoneCypher/is_ipv4/commit/a8faf787c5)] - just to exclude tests from codeclimate (John Haugeland) 
 * [[`49049e78eb`](https://github.com/StoneCypher/is_ipv4/commit/49049e78eb)] - bad data testcases for as_quad (John Haugeland) 
