@@ -1,0 +1,33 @@
+{
+  "name": "is_ipv4",
+  "version": "1.0.0",
+  "description": "Package for high-quality IPv4 address verification and identification",
+  "main": "src/js/is_ipv4.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StoneCypher/is_ipv4.git"
+  },
+  "keywords": [
+    "ip",
+    "ipv4",
+    "is-ip",
+    "is_ip",
+    "isip",
+    "test-ip",
+    "test_ip",
+    "testip",
+    "validate",
+    "validate-ip",
+    "validate_ip",
+    "validatip"
+  ],
+  "author": "John Haugeland <stonecypher@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StoneCypher/is_ipv4/issues"
+  },
+  "homepage": "https://github.com/StoneCypher/is_ipv4#readme"
+}
