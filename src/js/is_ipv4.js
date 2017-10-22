@@ -12,13 +12,17 @@ import type {
 
 
 
-const fail: Function = (why: string): Result => ({ result: false, reason: why });
+const fail: Function = (why: string): Result =>
+
+  ({ result: false, reason: why });
 
 
 
 
 
-const check: Function = (_ip: Ip): boolean => false;
+const check: Function = (_ip: Ip): boolean =>
+
+  false;  // whargarbl todo comeback
 
 
 
@@ -30,20 +34,7 @@ const letterFilter: RegExp = new RegExp('^[0-9\\.]+$');
 
 
 
-const is_quad_ex: Function = (ip: Ip): Result => {
-
-  if (!( typeof(ip) === 'string' )) {
-    return fail('All quads are strings');
-  }
-
-  if (!( letterFilter.test(ip) )) {
-    return fail('A quad may only contain 0-9 and period');
-  }
-
-
-  const quad: Array<string> = ip.split('.');
-  if (!(quad.length === 4)) { return fail('All complete quads have four bytes separated by periods'); }
-
+const check_quad: Function = (quad: Array<string>): Result | boolean => {
 
   for (let i: number = 0; i<4; ++i) { // eslint-disable-line fp/no-loops
 
@@ -65,7 +56,6 @@ const is_quad_ex: Function = (ip: Ip): Result => {
 
   }
 
-
   return { result: true };
 
 };
@@ -74,7 +64,31 @@ const is_quad_ex: Function = (ip: Ip): Result => {
 
 
 
-const is_quad: Function = (ip: Ip): boolean => is_quad_ex(ip).result;
+const is_quad_ex: Function = (ip: Ip): Result => {
+
+  if (!( typeof(ip) === 'string' )) {
+    return fail('All quads are strings');
+  }
+
+  if (!( letterFilter.test(ip) )) {
+    return fail('A quad may only contain 0-9 and period');
+  }
+
+
+  const quad: Array<string> = ip.split('.');
+  if (!(quad.length === 4)) { return fail('All complete quads have four bytes separated by periods'); }
+
+  return check_quad(quad);
+
+};
+
+
+
+
+
+const is_quad: Function = (ip: Ip): boolean =>
+
+  is_quad_ex(ip).result;
 
 
 
@@ -105,14 +119,44 @@ const integer_to_quad: Function = (ip: number): string => {
 
 
 
+const int_array_to_quad: Function = (ia: Array<number>): string => {
+
+  if (ia.length < 4) {
+    throw new RangeError('int_array_to_quad requires a 4-byte array');
+  }
+
+  ia.map( (byte,i) => {
+
+    if (!(Number.isInteger(byte))) {
+      throw new TypeError('int_array_to_quad accepts only arrays of integers');
+    }
+
+    if (byte < 0) {
+      throw new RangeError(`byte ${i} should be non-negative`);
+    }
+
+    if (byte > 255) {
+      throw new RangeError(`byte ${i} should be 255 or lower (y'know, a byte)`);
+    }
+
+  });
+
+  return `${ia[0]}.${ia[1]}.${ia[2]}.${ia[3]}`;
+
+};
+
+
+
+
+
 function ParsedQuad(a: number, b: number, c: number, d: number): ParsedQuad {
 
-    this.a = a;
-    this.b = b;
-    this.c = c;
-    this.d = d;
+  this.a = a;
+  this.b = b;
+  this.c = c;
+  this.d = d;
 
-    return this;
+  return this;
 
 }
 
@@ -122,7 +166,7 @@ function ParsedQuad(a: number, b: number, c: number, d: number): ParsedQuad {
 
 const parsed_quad_to_quad: Function = ({a, b, c, d}): string =>
 
-    `${a}.${b}.${c}.${d}`;
+  `${a}.${b}.${c}.${d}`;
 
 
 
@@ -136,6 +180,10 @@ const as_quad: Function = (ip: Ip): string => {
 
   else if (ip instanceof ParsedQuad) {
     return parsed_quad_to_quad(ip);
+  }
+
+  else if (Array.isArray(ip)) {
+    return int_array_to_quad(ip);
   }
 
   else if (is_quad(ip)) { return ip; }
@@ -152,12 +200,12 @@ const as_quad: Function = (ip: Ip): string => {
 
 const as_parsed_quad: Function = (ip: Ip): ParsedQuad => {
 
-    if (ip instanceof ParsedQuad) { return ip; }
+  if (ip instanceof ParsedQuad) { return ip; }
 
-    const bytes: Array<number> = as_quad(ip).split('.')
-                                            .map( (s: string): number => parseInt(s, 10));
+  const bytes: Array<number> = as_quad(ip).split('.')
+                                          .map( (s: string): number => parseInt(s, 10));
 
-    return new ParsedQuad(... bytes);
+  return new ParsedQuad(... bytes);
 
 };
 

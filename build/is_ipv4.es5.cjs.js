@@ -17,20 +17,7 @@ var check = function check(_ip) {
 
 var letterFilter = new RegExp('^[0-9\\.]+$');
 
-var is_quad_ex = function is_quad_ex(ip) {
-
-  if (!(typeof ip === 'string')) {
-    return fail('All quads are strings');
-  }
-
-  if (!letterFilter.test(ip)) {
-    return fail('A quad may only contain 0-9 and period');
-  }
-
-  var quad = ip.split('.');
-  if (!(quad.length === 4)) {
-    return fail('All complete quads have four bytes separated by periods');
-  }
+var check_quad = function check_quad(quad) {
 
   for (var i = 0; i < 4; ++i) {
     // eslint-disable-line fp/no-loops
@@ -59,6 +46,48 @@ var is_quad_ex = function is_quad_ex(ip) {
   return { result: true };
 };
 
+var is_quad_ex = function is_quad_ex(ip) {
+
+  if (!(typeof ip === 'string')) {
+    return fail('All quads are strings');
+  }
+
+  if (!letterFilter.test(ip)) {
+    return fail('A quad may only contain 0-9 and period');
+  }
+
+  var quad = ip.split('.');
+  if (!(quad.length === 4)) {
+    return fail('All complete quads have four bytes separated by periods');
+  }
+
+  /*
+    for (let i: number = 0; i<4; ++i) { // eslint-disable-line fp/no-loops
+  
+      const b: string = quad[i];
+      if (b.length === 0) { return fail(`Byte ${i} must not be empty`); }
+  
+      const bt: number = parseInt(b, 10);
+  
+      // needn't check below zero, because character filter prevents minus signs
+      if (bt > 255) { return fail(`Byte ${i} must be below 256`); }
+  
+      if ((b[0] === '0') && (bt > 0)) {
+        return fail(`Nonzero byte ${i} must not begin with zero`);
+      }
+  
+      if ((b.length > 1) && (bt === 0)) {
+        return fail(`Zero byte ${i} must not have multiple zeroes`);
+      }
+  
+    }
+  
+  
+    return { result: true };
+  */
+  return check_quad(quad);
+};
+
 var is_quad = function is_quad(ip) {
   return is_quad_ex(ip).result;
 };
@@ -82,6 +111,30 @@ var integer_to_quad = function integer_to_quad(ip) {
   }
 
   return (ip >> 24 & 0xFF) + '.' + (ip >> 16 & 0xFF) + '.' + (ip >> 8 & 0xFF) + '.' + (ip & 0xFF); // eslint-disable-line no-bitwise
+};
+
+var int_array_to_quad = function int_array_to_quad(ia) {
+
+  if (ia.length < 4) {
+    throw new RangeError('int_array_to_quad requires a 4-byte array');
+  }
+
+  ia.map(function (byte, i) {
+
+    if (!Number.isInteger(byte)) {
+      throw new TypeError('int_array_to_quad accepts only arrays of integers');
+    }
+
+    if (byte < 0) {
+      throw new RangeError('byte ' + i + ' should be non-negative');
+    }
+
+    if (byte > 255) {
+      throw new RangeError('byte ' + i + ' should be 255 or lower (y\'know, a byte)');
+    }
+  });
+
+  return ia[0] + '.' + ia[1] + '.' + ia[2] + '.' + ia[3];
 };
 
 function ParsedQuad(a, b, c, d) {
@@ -108,6 +161,8 @@ var as_quad = function as_quad(ip) {
     return integer_to_quad(ip);
   } else if (ip instanceof ParsedQuad) {
     return parsed_quad_to_quad(ip);
+  } else if (Array.isArray(ip)) {
+    return int_array_to_quad(ip);
   } else if (is_quad(ip)) {
     return ip;
   }
