@@ -2,6 +2,7 @@
 import {test, describe}      from 'ava-spec';
 import {is_quad, is_quad_ex} from '../../build/is_ipv4.es5.js';
 import {rand, rand_quad}     from './__gen.js';
+import {quad_cases}          from './__quad_data.js';
 
 
 
@@ -13,7 +14,7 @@ describe('Basic quad passes', async _it => {
   const must_pass_ex = tcase => test(`${tcase} passes is_quad_ex`, t => t.is(true, is_quad_ex(tcase).result ));
 
   // test default-bind, ones, universal broadcast, localhost, google dns, inverter range
-  const cases = [ '0.0.0.0', '1.1.1.1', '255.255.255.255', '127.0.0.1', '8.8.8.8', '0.255.255.0' ];
+  const cases = quad_cases.map(qc => qc.quad_str);
   cases.map(must_pass);
   cases.map(must_pass_ex);
 

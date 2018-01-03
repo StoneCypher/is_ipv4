@@ -1,3 +1,4 @@
+* [[`7f40d5d698`](https://github.com/StoneCypher/is_ipv4/commit/7f40d5d698)] - moar (John Haugeland) 
 * [[`3ad17f55c0`](https://github.com/StoneCypher/is_ipv4/commit/3ad17f55c0)] - couple more bits of generation (John Haugeland) 
 * [[`0bf46cea60`](https://github.com/StoneCypher/is_ipv4/commit/0bf46cea60)] - extract generation (John Haugeland) 
 * [[`1119d88b4e`](https://github.com/StoneCypher/is_ipv4/commit/1119d88b4e)] - convert as_quad and as_parsed_quad tests to data-driven (John Haugeland) 
