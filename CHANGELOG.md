@@ -1,3 +1,4 @@
+* [[`ae7fd17b98`](https://github.com/StoneCypher/is_ipv4/commit/ae7fd17b98)] - Clears offending deps (John Haugeland) 
 * [[`61244f4f42`](https://github.com/StoneCypher/is_ipv4/commit/61244f4f42)] - hoek update (John Haugeland) 
 * [[`904dc1ab24`](https://github.com/StoneCypher/is_ipv4/commit/904dc1ab24)] - sync (John Haugeland) 
 * [[`7f40d5d698`](https://github.com/StoneCypher/is_ipv4/commit/7f40d5d698)] - moar (John Haugeland) 
