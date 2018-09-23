@@ -1,3 +1,5 @@
+* [[`b0662fc3cc`](https://github.com/StoneCypher/is_ipv4/commit/b0662fc3cc)] - Merge pull request #1 from StoneCypher/UpgradeAva (John Haugeland) 
+* [[`f8014f9f87`](https://github.com/StoneCypher/is_ipv4/commit/f8014f9f87)] - bump package and update build and changelog (John Haugeland) 
 * [[`ae7fd17b98`](https://github.com/StoneCypher/is_ipv4/commit/ae7fd17b98)] - Clears offending deps (John Haugeland) 
 * [[`61244f4f42`](https://github.com/StoneCypher/is_ipv4/commit/61244f4f42)] - hoek update (John Haugeland) 
 * [[`904dc1ab24`](https://github.com/StoneCypher/is_ipv4/commit/904dc1ab24)] - sync (John Haugeland) 
