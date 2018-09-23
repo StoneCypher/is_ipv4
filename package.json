@@ -1,6 +1,6 @@
 {
   "name": "is_ipv4",
-  "version": "1.7.11",
+  "version": "1.7.12",
   "description": "Package for high-quality IPv4 address verification and identification",
   "main": "src/js/is_ipv4.js",
   "scripts": {
